@@ -5,7 +5,7 @@ A script used by [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) on a
 Wyze Cams offer the ability to upload video recordings to cloud, but only via paid subscription. This script is used alongside [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) on a compatible Wyze Cam to instead upload to a Google Drive account at no additional cost.
 
 ## Requirements
-- Wyze Cam with [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) installed
+- Wyze Cam with [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) installed. I use a Wyze Cam Pan v2
 - Google Drive account with [API access enabled](https://medium.com/@ianhutch90/google-drive-file-upload-using-the-terminal-3652ee90a6f6)
 - Motion-detection enabled
 
@@ -22,4 +22,4 @@ Wyze Cams offer the ability to upload video recordings to cloud, but only via pa
 5. Boot, and new motion-detected recordings will be uploaded to the root of your Google Drive in the naming-convention of `YYYYMMDD-HHMM.mp4`
 
 ## Disclaimer
-**Use at your own risk.** It's bad practise to hard-code credentials in a script, though the light-weight busybox Linux environment used by [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) made the use of service accounts challenging for my use-case. Thus, a Google account dedicated for use by this script is preferred.
+**Use at your own risk.** It's bad practise to hard-code credentials in a script, though the light-weight busybox Linux environment used by [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) made implementation of service accounts challenging. Thus, a Google account dedicated for use by this script is preferred.
