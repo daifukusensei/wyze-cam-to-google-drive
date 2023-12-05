@@ -18,8 +18,9 @@ Wyze Cams offer the ability to upload video recordings to cloud, but only via pa
     - `CLIENTID`
 	- `CLIENTSECRET`
 	- `REFRESHTOKEN`
+	- `RECORDINGDIR`
 4. Copy the updated script to *wz_mini/etc/rc.local.d* on the Wyze Cam's microSD card
 5. Boot, and new motion-detected recordings will be uploaded to the root of your Google Drive in the naming-convention of `YYYYMMDD-HHMM.mp4`
 
 ## Disclaimer
-**Use at your own risk.** It's bad practise to hard-code credentials in a script, though the light-weight busybox Linux environment used by [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) made implementation of service accounts challenging. Thus, a Google account dedicated for use by this script is preferred.
+**Use at your own risk.** It's bad practise to hard-code credentials in a script, though the light-weight BusyBox Linux environment used by [wz_mini_hacks](https://github.com/gtxaspec/wz_mini_hacks) made implementation of service accounts challenging. Thus, a Google account dedicated for use by this script is preferred.

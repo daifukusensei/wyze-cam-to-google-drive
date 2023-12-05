@@ -1,32 +1,25 @@
 #!/bin/sh
 # Wyze Cam-to-Google Drive
-# Uploads newly-recorded videos to Google Drive when running from a Wyze Cam with wz_mini_hacks installed; update CLIENTID, CLIENTSECRET and REFRESHTOKEN as required
+# Uploads newly-recorded videos to Google Drive when running from a Wyze Cam with wz_mini_hacks installed
 
 CLIENTID=""
 CLIENTSECRET=""
 REFRESHTOKEN=""
+RECORDINGDIR="/media/mmc/record"
 
 while true
 do
 	touch /tmp/lastwatch
 	
-	# Get current epoch time
-	CURRENTTIME=$(date +%s)
-
-	# Calculate epoch time for 5 minutes from now
-	FIVEMINSAHEAD=$((CURRENTTIME + 300))
-
-	# Convert that epoch time to the format touch expects (YYYYMMDDhhmm.ss)
-	FORMATTEDTIME=$(date -d "@$FIVEMINSAHEAD" +"%Y%m%d%H%M.%S")
-
-	# Use touch to set the time
-	touch -t $FORMATTEDTIME /tmp/limitwatch
+	# touch a file and set its timestamp to 5 minutes in the future
+	touch -t $(date -d "@$(($(date +%s) + 300))" +"%Y%m%d%H%M.%S") /tmp/limitwatch
 	
 	# Arbitrary pause so as to not continuously write to microSD card
 	sleep 5
 	
 	# Look for newly-recorded videos on the microSD card
-	find /media/mmc/record -type f -newer /tmp/lastwatch ! -newer /tmp/limitwatch -print | while read filepath; do
+	# The date & time on boot of my Wyze Cam Pan v2 resets to a specific date & time in 2021 until it's able to look up the correct time via NTP, so both limitwatch and exec are used to avoid false-positives
+	find $RECORDINGDIR -type f -newer /tmp/lastwatch ! -newer /tmp/limitwatch -exec sh -c 'test "$(date -r "{}" +%Y)" -ne "2021"' \; -print | while read filepath; do
 		YYYYMMDD=$(basename $(dirname $(dirname "$filepath")))
 		HH=$(basename $(dirname "$filepath"))
 		MM=$(basename "$filepath" .mp4)
